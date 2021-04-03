@@ -1,10 +1,14 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const { check, validationResult } = require('express-validator/check');
 
 const app = express();
 
 // connect Database
 connectDB();
+
+// init middleware
+app.use(express.json({ extended: false }));
 
 // endpoints
 app.get('/', (req, res) => res.send('API Running'));
