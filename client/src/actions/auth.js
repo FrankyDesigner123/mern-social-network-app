@@ -1,6 +1,27 @@
-import axios from 'axios';
+import api from '../utils/api';
 import { setAlert } from './alert';
-import { REGISTER_SUCCESS, REGISTER_FAIL } from './types';
+import {
+	REGISTER_SUCCESS,
+	REGISTER_FAIL,
+	USER_LOADED,
+	AUTH_ERROR,
+} from './types';
+
+// Load User
+export const loadUser = () => async (dispatch) => {
+	try {
+		const res = await api.get('/auth');
+
+		dispatch({
+			type: USER_LOADED,
+			payload: res.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: AUTH_ERROR,
+		});
+	}
+};
 
 // Register User
 export const register = ({ name, email, password }) => async (dispatch) => {
@@ -12,7 +33,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 	const body = JSON.stringify({ name, email, password });
 
 	try {
-		const res = await axios.post('/api/users', body, config);
+		const res = await api.post('/users', body, config);
 
 		dispatch({
 			type: REGISTER_SUCCESS,
