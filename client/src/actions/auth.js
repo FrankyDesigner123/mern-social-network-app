@@ -32,6 +32,7 @@ export const register = (formData) => async (dispatch) => {
 			type: REGISTER_SUCCESS,
 			payload: res.data,
 		});
+		dispatch(loadUser());
 	} catch (err) {
 		// error toaster
 		const errors = err.response.data.errors;
