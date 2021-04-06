@@ -24,16 +24,9 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Register User
-export const register = ({ name, email, password }) => async (dispatch) => {
-	const config = {
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	};
-	const body = JSON.stringify({ name, email, password });
-
+export const register = (formData) => async (dispatch) => {
 	try {
-		const res = await api.post('/users', body, config);
+		const res = await api.post('/users', formData);
 
 		dispatch({
 			type: REGISTER_SUCCESS,
