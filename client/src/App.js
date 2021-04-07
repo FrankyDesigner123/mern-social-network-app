@@ -14,11 +14,14 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/routing/PrivateRoute';
 import ProfileForm from './components/profile-forms/ProfileForm';
+import AddExperience from './components/profile-forms/AddExperience';
+import AddEduction from './components/profile-forms/AddEducation';
 
 import Alert from './components/layout/Alert';
 
 import './App.css';
 import setAuthToken from './utils/setAuthToken';
+import AddEducation from './components/profile-forms/AddEducation';
 
 const App = () => {
 	useEffect(() => {
@@ -49,6 +52,16 @@ const App = () => {
 								exact
 								path="/edit-profile"
 								component={ProfileForm}
+							/>
+							<PrivateRoute
+								exact
+								path="/add-experience"
+								component={AddExperience}
+							/>
+							<PrivateRoute
+								exact
+								path="/add-education"
+								component={AddEducation}
 							/>
 						</Switch>
 					</section>
