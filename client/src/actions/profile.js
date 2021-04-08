@@ -7,6 +7,8 @@ import {
 	GET_PROFILE,
 	PROFILE_ERROR,
 	UPDATE_PROFILE,
+	GET_ALL_PROFILES,
+	GET_REPOS,
 } from './types';
 
 //Get current users profile
@@ -16,6 +18,60 @@ export const getCurrentProfile = () => async (dispatch) => {
 
 		dispatch({
 			type: GET_PROFILE,
+			payload: res.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PROFILE_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// get All Profiles
+export const getAllProfiles = () => async (dispatch) => {
+	dispatch({
+		type: CLEAR_PROFILE,
+	});
+	try {
+		const res = await api.get('/profile');
+
+		dispatch({
+			type: GET_ALL_PROFILES,
+			payload: res.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PROFILE_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// get profile by id
+export const getProfileById = (userId) => async (dispatch) => {
+	try {
+		const res = await api.get(`/profile/user/${userId}`);
+
+		dispatch({
+			type: GET_PROFILE,
+			payload: res.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PROFILE_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// get Github repos
+export const getGithubRepos = (username) => async (dispatch) => {
+	try {
+		const res = await api.get(`/profile/github/${username}`);
+
+		dispatch({
+			type: GET_REPOS,
 			payload: res.data,
 		});
 	} catch (err) {
